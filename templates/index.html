@@ -275,8 +275,8 @@
     }
 
     .hero-avatar {
-      width: 320px;
-      height: 440px;
+      width: 480px;
+      height: 650px;
       display: flex;
       align-items: flex-end;
       justify-content: center;
@@ -1133,6 +1133,7 @@
       0% {
         transform: translateX(0);
       }
+
       100% {
         transform: translateX(-50%);
       }
@@ -1246,8 +1247,10 @@
       }
 
       .hero-avatar {
-        width: 200px;
-        height: 280px;
+        width: 500px;
+        max-width: 90vw;
+        height: auto;
+        aspect-ratio: 480 / 650;
       }
 
       .hero-rating-block {
@@ -1338,7 +1341,8 @@
         flex-direction: column;
       }
 
-      .btn-primary, .btn-ghost {
+      .btn-primary,
+      .btn-ghost {
         width: 100%;
         justify-content: center;
       }
@@ -1363,16 +1367,73 @@
     }
 
     /* 3D Tech Stack Cube */
-    .cube-container { width: 220px; height: 220px; perspective: 1000px; margin: 0 auto; }
-    .cube { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; animation: cube-rotate 15s infinite linear; }
-    .cube-face { position: absolute; width: 220px; height: 220px; background-color: rgba(184, 169, 248, 0.05); display: flex; align-items: center; justify-content: center; color: var(--accent); font-family: var(--font-head); font-weight: 700; font-size: 2.2rem; border: 1px solid rgba(184, 169, 248, 0.25); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); letter-spacing: 0.05em; box-shadow: inset 0 0 20px rgba(184, 169, 248, 0.1); }
-    .front { transform: translateZ(110px); }
-    .back { transform: rotateY(180deg) translateZ(110px); }
-    .right { transform: rotateY(90deg) translateZ(110px); }
-    .left { transform: rotateY(-90deg) translateZ(110px); }
-    .top { transform: rotateX(90deg) translateZ(110px); }
-    .bottom { transform: rotateX(-90deg) translateZ(110px); }
-    @keyframes cube-rotate { 0% { transform: rotateX(0) rotateY(0); } 100% { transform: rotateX(360deg) rotateY(360deg); } }
+    .cube-container {
+      width: 220px;
+      height: 220px;
+      perspective: 1000px;
+      margin: 0 auto;
+    }
+
+    .cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: cube-rotate 15s infinite linear;
+    }
+
+    .cube-face {
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      background-color: rgba(184, 169, 248, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 2.2rem;
+      border: 1px solid rgba(184, 169, 248, 0.25);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      letter-spacing: 0.05em;
+      box-shadow: inset 0 0 20px rgba(184, 169, 248, 0.1);
+    }
+
+    .front {
+      transform: translateZ(110px);
+    }
+
+    .back {
+      transform: rotateY(180deg) translateZ(110px);
+    }
+
+    .right {
+      transform: rotateY(90deg) translateZ(110px);
+    }
+
+    .left {
+      transform: rotateY(-90deg) translateZ(110px);
+    }
+
+    .top {
+      transform: rotateX(90deg) translateZ(110px);
+    }
+
+    .bottom {
+      transform: rotateX(-90deg) translateZ(110px);
+    }
+
+    @keyframes cube-rotate {
+      0% {
+        transform: rotateX(0) rotateY(0);
+      }
+
+      100% {
+        transform: rotateX(360deg) rotateY(360deg);
+      }
+    }
 
     .type-cursor {
       display: inline-block;
@@ -1382,9 +1443,17 @@
       margin-left: 2px;
       font-weight: bold;
     }
+
     @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -1418,7 +1487,8 @@
           <em>for the web.</em>
         </h1>
         <p class="hero-sub">
-          I'm <strong id="typewriterName" style="color:var(--text)">kleia</strong><span class="type-cursor">|</span> — a full-stack developer &amp; AI-powered web builder
+          I'm <strong id="typewriterName" style="color:var(--text)">kleia</strong><span class="type-cursor">|</span> — a
+          full-stack developer &amp; AI-powered web builder
           crafting fast, purposeful digital experiences. From interactive artifacts to production-ready apps.
         </p>
         <div class="hero-actions">
@@ -1439,7 +1509,7 @@
             {% set full_stars = avg_rating | int %}
             {% set half_star = 1 if (avg_rating - full_stars) >= 0.5 else 0 %}
             {% set empty_stars = 5 - full_stars - half_star %}
-            
+
             {% for _ in range(full_stars) %}
             <span class="star">★</span>
             {% endfor %}
@@ -1490,9 +1560,13 @@
       <h2 class="section-title">Developer &amp; builder<br>at heart.</h2>
       <div class="about-grid reveal">
         <div class="about-text">
-          <p>Hey! I'm <strong>kleia (LikeNmuFF)</strong>, a 3rd year Computer Science student, Cyber Security enthusiast, and developer based remotely, passionate about learning and crafting digital experiences.</p>
-          <p>I'm currently starting my journey in software development, exploring a wide range of technologies from frontend web design to backend databases and Java applications. My GitHub hosts various repositories as I continue to experiment and build my skillset.</p>
-          <p>When I'm not writing code, I'm diving into new frameworks, practicing UI/UX design, and learning how to deploy my projects across different hosting platforms.</p>
+          <p>Hey! I'm <strong>kleia (LikeNmuFF)</strong>, a 3rd year Computer Science student, Cyber Security
+            enthusiast, and developer based remotely, passionate about learning and crafting digital experiences.</p>
+          <p>I'm currently starting my journey in software development, exploring a wide range of technologies from
+            frontend web design to backend databases and Java applications. My GitHub hosts various repositories as I
+            continue to experiment and build my skillset.</p>
+          <p>When I'm not writing code, I'm diving into new frameworks, practicing UI/UX design, and learning how to
+            deploy my projects across different hosting platforms.</p>
           <div style="margin-top:1.8rem; display: flex; gap: 1rem;">
             <a href="https://github.com/LikeNmuFF" target="_blank" class="btn-ghost"
               style="display:inline-flex; font-size:0.78rem;">github profile ↗</a>
@@ -1563,17 +1637,17 @@
       <div class="section-label">my tech stack</div>
       <h2 class="section-title">Core Technologies.</h2>
       <p class="section-desc">A visual representation of the technologies I'm actively working with.</p>
-      
+
       <div class="reveal" style="display: flex; justify-content: center; padding: 4rem 0;">
         <div class="cube-container">
-            <div class="cube">
-                <div class="cube-face front">HTML</div>
-                <div class="cube-face back">CSS</div>
-                <div class="cube-face right">JS</div>
-                <div class="cube-face left">PYTHON</div>
-                <div class="cube-face top">SQL</div>
-                <div class="cube-face bottom">PHP</div>
-            </div>
+          <div class="cube">
+            <div class="cube-face front">HTML</div>
+            <div class="cube-face back">CSS</div>
+            <div class="cube-face right">JS</div>
+            <div class="cube-face left">PYTHON</div>
+            <div class="cube-face top">SQL</div>
+            <div class="cube-face bottom">PHP</div>
+          </div>
         </div>
       </div>
     </div>
@@ -1588,37 +1662,44 @@
       <div class="projects-grid">
         {% for project in projects %}
         <a href="{{ project.github_link }}" target="_blank" class="project-card reveal" style="padding: 0;">
-          
+
           {% if project.image %}
           <div style="position: relative;">
-            <img src="/static/images/{{ project.image }}" alt="{{ project.title }}" style="width:100%; height:180px; object-fit:cover; border-bottom: 1px solid var(--border);" onerror="this.style.display='none'">
+            <img src="/static/images/{{ project.image }}" alt="{{ project.title }}"
+              style="width:100%; height:180px; object-fit:cover; border-bottom: 1px solid var(--border);"
+              onerror="this.style.display='none'">
             {% if project.featured %}
-            <div class="project-badge" style="position: absolute; top: 1rem; left: 1rem; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);">Featured</div>
+            <div class="project-badge"
+              style="position: absolute; top: 1rem; left: 1rem; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);">
+              Featured</div>
             {% endif %}
             {% if project.rating %}
-            <div class="project-badge" style="position: absolute; top: 1rem; right: 1rem; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); color: #fbbf24; border-color: rgba(251, 191, 36, 0.3);">
+            <div class="project-badge"
+              style="position: absolute; top: 1rem; right: 1rem; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); color: #fbbf24; border-color: rgba(251, 191, 36, 0.3);">
               ★ {{ project.rating }} ({{ project.rating_count }})
             </div>
             {% endif %}
           </div>
           {% else %}
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin: 2rem 2rem 0 2rem;">
-              {% if project.featured %}
-              <div class="project-badge">Featured</div>
-              {% else %}
-              <div></div>
-              {% endif %}
-              
-              {% if project.rating %}
-              <div class="project-badge" style="color: #fbbf24; border-color: rgba(251, 191, 36, 0.3);">
-                ★ {{ project.rating }} ({{ project.rating_count }})
-              </div>
-              {% endif %}
+          <div
+            style="display: flex; justify-content: space-between; align-items: flex-start; margin: 2rem 2rem 0 2rem;">
+            {% if project.featured %}
+            <div class="project-badge">Featured</div>
+            {% else %}
+            <div></div>
+            {% endif %}
+
+            {% if project.rating %}
+            <div class="project-badge" style="color: #fbbf24; border-color: rgba(251, 191, 36, 0.3);">
+              ★ {{ project.rating }} ({{ project.rating_count }})
             </div>
-            <div class="project-icon" style="margin: 1rem 2rem 0 2rem;">{{ project.icon if project.icon else '📁' }}</div>
+            {% endif %}
+          </div>
+          <div class="project-icon" style="margin: 1rem 2rem 0 2rem;">{{ project.icon if project.icon else '📁' }}</div>
           {% endif %}
-          
-          <div style="padding: {% if project.image %}1.5rem 2rem 2rem 2rem{% else %}1rem 2rem 2rem 2rem{% endif %}; display: flex; flex-direction: column; gap: 1rem; flex: 1;">
+
+          <div
+            style="padding: {% if project.image %}1.5rem 2rem 2rem 2rem{% else %}1rem 2rem 2rem 2rem{% endif %}; display: flex; flex-direction: column; gap: 1rem; flex: 1;">
             <div class="project-name">{{ project.title }}</div>
             <p class="project-desc">{{ project.description }}</p>
             <div class="project-meta">
@@ -1643,12 +1724,14 @@
         <div class="service-card">
           <div class="service-icon">⚡</div>
           <div class="service-name">Full-Stack Web Apps</div>
-          <p class="service-desc">Building responsive, feature-rich web applications from the ground up using modern frameworks and database architectures.</p>
+          <p class="service-desc">Building responsive, feature-rich web applications from the ground up using modern
+            frameworks and database architectures.</p>
         </div>
         <div class="service-card">
           <div class="service-icon">🛡️</div>
           <div class="service-name">Security Analysis</div>
-          <p class="service-desc">Applying cyber security principles and digital forensics methodologies to ensure safe, robust application environments.</p>
+          <p class="service-desc">Applying cyber security principles and digital forensics methodologies to ensure safe,
+            robust application environments.</p>
         </div>
         <div class="service-card">
           <div class="service-icon">🚀</div>
@@ -1704,23 +1787,26 @@
           </div>
         </div>
         <form class="contact-form" onsubmit="handleSubmit(event)">
+          <!-- Web3Forms Access Key - You get this from web3forms.com -->
+          <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+
           <div class="form-row">
             <div class="field">
               <label for="name">Name</label>
-              <input type="text" id="name" placeholder="Your name" required>
+              <input type="text" id="name" name="name" placeholder="Your name" required>
             </div>
             <div class="field">
               <label for="email">Email</label>
-              <input type="email" id="email" placeholder="you@example.com" required>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required>
             </div>
           </div>
           <div class="field">
             <label for="subject">Subject</label>
-            <input type="text" id="subject" placeholder="What's this about?">
+            <input type="text" id="subject" name="subject" placeholder="What's this about?">
           </div>
           <div class="field">
             <label for="msg">Message</label>
-            <textarea id="msg" placeholder="Tell me about your project..." required></textarea>
+            <textarea id="msg" name="message" placeholder="Tell me about your project..." required></textarea>
           </div>
           <button type="submit" class="btn-primary" style="align-self:flex-start;" id="submitBtn">
             send message →
@@ -1741,32 +1827,28 @@
         <div class="rating-carousel-card">
           <div class="rating-card-stars">
             {% for i in range(5) %}
-              {% if i < r.rating|int %}★{% else %}☆{% endif %}
+            {% if i < r.rating|int %}★{% else %}☆{% endif %} {% endfor %} </div>
+              <div class="rating-card-name">{{ r.name[0] }}***</div>
+              <div class="rating-card-email">{{ r.email_masked }}</div>
+              <p class="rating-card-text">"{{ r.review }}"</p>
+              <div class="rating-card-date">{{ r.created_at[:10] }}</div>
+          </div>
+          {% endfor %}
+          <!-- Duplicate for seamless loop -->
+          {% for r in ratings %}
+          <div class="rating-carousel-card">
+            <div class="rating-card-stars">
+              {% for i in range(5) %}
+              {% if i < r.rating|int %}★{% else %}☆{% endif %} {% endfor %} </div>
+                <div class="rating-card-name">{{ r.name[0] }}***</div>
+                <div class="rating-card-email">{{ r.email_masked }}</div>
+                <p class="rating-card-text">"{{ r.review }}"</p>
+                <div class="rating-card-date">{{ r.created_at[:10] }}</div>
+            </div>
             {% endfor %}
           </div>
-          <div class="rating-card-name">{{ r.name[0] }}***</div>
-          <div class="rating-card-email">{{ r.email_masked }}</div>
-          <p class="rating-card-text">"{{ r.review }}"</p>
-          <div class="rating-card-date">{{ r.created_at[:10] }}</div>
         </div>
-        {% endfor %}
-        <!-- Duplicate for seamless loop -->
-        {% for r in ratings %}
-        <div class="rating-carousel-card">
-          <div class="rating-card-stars">
-            {% for i in range(5) %}
-              {% if i < r.rating|int %}★{% else %}☆{% endif %}
-            {% endfor %}
-          </div>
-          <div class="rating-card-name">{{ r.name[0] }}***</div>
-          <div class="rating-card-email">{{ r.email_masked }}</div>
-          <p class="rating-card-text">"{{ r.review }}"</p>
-          <div class="rating-card-date">{{ r.created_at[:10] }}</div>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-    <a href="/rate" class="btn-ghost carousel-cta">Rate My Work ↗</a>
+        <a href="/rate" class="btn-ghost carousel-cta">Rate My Work ↗</a>
   </section>
 
   <!-- Footer -->
@@ -1790,20 +1872,20 @@
     let charIndex = names[0].length; // Start fully typed with the first name
     let isDeleting = true; // First action after delay is to delete
     const typeElement = document.getElementById("typewriterName");
-    
+
     function typeEffect() {
       const currentName = names[nameIndex];
-      
+
       if (isDeleting) {
         charIndex--;
       } else {
         charIndex++;
       }
-      
+
       typeElement.textContent = currentName.substring(0, charIndex);
-      
+
       let typeSpeed = isDeleting ? 50 : 100;
-      
+
       if (!isDeleting && charIndex === currentName.length) {
         typeSpeed = 2500; // Pause at end of word
         isDeleting = true;
@@ -1812,10 +1894,10 @@
         nameIndex = (nameIndex + 1) % names.length;
         typeSpeed = 400; // Pause before new word
       }
-      
+
       setTimeout(typeEffect, typeSpeed);
     }
-    
+
     setTimeout(typeEffect, 2500); // Start after 2.5s
 
     // Hamburger
@@ -1848,23 +1930,61 @@
     });
 
     // Form submit handler
+    // Form submit handler for Web3Forms
     function handleSubmit(e) {
       e.preventDefault();
       const btn = document.getElementById('submitBtn');
       const msg = document.getElementById('formMsg');
+
+      const originalText = btn.textContent;
       btn.textContent = 'sending...';
       btn.disabled = true;
-      setTimeout(() => {
-        btn.textContent = 'sent ✓';
-        msg.style.display = 'block';
-        msg.textContent = 'Thanks! I\'ll get back to you soon.';
-        e.target.reset();
-        setTimeout(() => {
-          btn.textContent = 'send message →';
-          btn.disabled = false;
-          msg.style.display = 'none';
-        }, 4000);
-      }, 1200);
+
+      const formData = new FormData(e.target);
+      const object = Object.fromEntries(formData);
+      const json = JSON.stringify(object);
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: json
+      })
+        .then(async (response) => {
+          let jsonResponse = await response.json();
+          if (response.status == 200) {
+            btn.textContent = 'sent ✓';
+            msg.style.display = 'block';
+            msg.style.color = 'var(--accent2)';
+            msg.textContent = 'Thanks! I\'ll get back to you soon.';
+            e.target.reset();
+          } else {
+            console.log(response);
+            btn.textContent = 'error!';
+            msg.style.display = 'block';
+            msg.style.color = '#f87171';
+            msg.textContent = jsonResponse.message || "Submission failed";
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          btn.textContent = 'error!';
+          msg.style.display = 'block';
+          msg.style.color = '#f87171';
+          msg.textContent = "Something went wrong. Please try again.";
+        })
+        .then(function () {
+          setTimeout(() => {
+            btn.textContent = originalText;
+            btn.disabled = false;
+            // Keep message visible for a bit longer
+            setTimeout(() => {
+              msg.style.display = 'none';
+            }, 3000);
+          }, 2000);
+        });
     }
   </script>
 </body>
