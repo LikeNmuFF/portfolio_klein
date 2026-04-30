@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Certificates - Klein Ric Abong Portfolio{% endblock %}
+
+{% block content %}
+
+<section style="padding-top: 8rem;">
+  <div class="section-inner">
+    <div class="section-label">achievements</div>
+    <h2 class="section-title">Certificates &amp; Credentials.</h2>
+    <p class="section-desc">Professional certifications and credentials I've earned through continuous learning.</p>
+    
+    <div class="certificates-grid reveal">
+      {% for cert in certificates %}
+      <div class="certificate-card">
+        {% if cert.image_path %}
+          <img src="/static/images/{{ cert.image_path }}" alt="{{ cert.name }}" class="certificate-image" onerror="this.style.background='var(--bg)'; this.style.display='none';">
+        {% endif %}
+        <div class="certificate-info">
+          <div class="certificate-name">{{ cert.name }}</div>
+          <div class="certificate-org">{{ cert.organization }}</div>
+          <div class="certificate-date">Received: {{ cert.date_received }}</div>
+          {% if cert.certificate_url %}
+            <div style="margin-top: 1rem;">
+              <a href="{{ cert.certificate_url }}" target="_blank" class="btn-ghost" style="display: inline-flex; font-size: 0.75rem;">View Certificate ↗</a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      {% else %}
+      <div style="grid-column: 1 / -1; padding: 3rem; text-align: center; color: var(--muted);">
+        <p>No certificates added yet.</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section style="background: var(--bg2);">
+  <div class="section-inner" style="text-align: center;">
+    <h3 style="font-family: var(--font-head); font-size: 1.5rem; color: var(--text); margin-bottom: 1rem;">Always Learning</h3>
+    <p style="color: var(--muted); max-width: 600px; margin: 0 auto;">I'm committed to continuous professional development and staying updated with the latest technologies and best practices in web development.</p>
+  </div>
+</section>
+
+{% endblock %}

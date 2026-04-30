@@ -1,0 +1,48 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "E-Commerce Website",
+      "description": "A fully functional e-commerce website built with React and Node.js. Features include product listings, a shopping cart, and user authentication.",
+      "image": "projects/project-1.jpg",
+      "tech": ["React", "Node.js", "MongoDB"],
+      "github_link": "https://github.com/LikeNmuFF/ecommerce",
+      "live_link": "#",
+      "featured": true,
+      "icon": "🛒"
+    },
+    {
+      "id": 2,
+      "title": "Portfolio Website",
+      "description": "A personal portfolio website showcasing my skills, projects, and experience. Built with HTML, CSS, and JavaScript.",
+      "image": "projects/project-2.jpg",
+      "tech": ["HTML", "CSS", "JavaScript"],
+      "github_link": "https://github.com/LikeNmuFF/portfolio",
+      "live_link": "#",
+      "featured": true,
+      "icon": "👨‍💻"
+    },
+    {
+      "id": 3,
+      "title": "Blog Platform",
+      "description": "A blogging platform where users can create, read, update, and delete posts. Built with Vue.js and Firebase.",
+      "image": "projects/project-3.jpg",
+      "tech": ["Vue.js", "Firebase", "REST API"],
+      "github_link": "https://github.com/LikeNmuFF/blog",
+      "live_link": "#",
+      "featured": true,
+      "icon": "📝"
+    },
+    {
+      "id": 4,
+      "title": "45+ Repositories",
+      "description": "Explore my full GitHub profile for experiments, utilities, full-stack apps, and open-source contributions spanning frontend, backend, and various tooling.",
+      "image": "projects/project-4.jpg",
+      "tech": ["GitHub", "Open Source"],
+      "github_link": "https://github.com/LikeNmuFF",
+      "live_link": "https://github.com/LikeNmuFF",
+      "featured": false,
+      "icon": "📦"
+    }
+  ]
+}

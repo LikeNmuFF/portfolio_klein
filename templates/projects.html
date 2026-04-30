@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Projects - Klein Ric Abong Portfolio{% endblock %}
+
+{% block content %}
+
+<section style="padding-top: 8rem; padding-bottom: 4rem;">
+  <div class="section-inner">
+    <div class="section-label">what i've built</div>
+    <h2 class="section-title">Featured projects.</h2>
+    <p class="section-desc">A selection of my open-source work and personal projects showcasing my skills and expertise.</p>
+  </div>
+</section>
+
+<section id="projects" style="background:var(--bg2); padding-top:0;">
+  <div class="section-inner">
+    <div class="projects-grid">
+      {% for project in projects %}
+      <a href="{{ project.live_link or project.github_link }}" target="_blank" class="project-card reveal">
+        {% if project.featured %}
+          <div class="project-badge">Featured</div>
+        {% endif %}
+        
+        {% if project.image %}
+          <img src="/static/images/{{ project.image }}" alt="{{ project.title }}" class="project-image" style="width:100%; height:200px; object-fit:cover; background:var(--bg);" onerror="this.style.background='var(--bg3)'">
+        {% endif %}
+        
+        <div class="project-content">
+          <div class="project-name">{{ project.title }}</div>
+          <p class="project-desc">{{ project.description }}</p>
+          <div class="project-meta">
+            <span class="project-tech">{{ ' · '.join(project.tech) }}</span>
+            <span class="project-arrow">↗</span>
+          </div>
+        </div>
+      </a>
+      {% else %}
+      <div style="grid-column: 1 / -1; padding: 3rem; text-align: center; color: var(--muted);">
+        <p>No projects yet. Check back soon!</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-inner">
+    <div style="text-align: center; padding: 2rem;">
+      <h3 style="font-family: var(--font-head); font-size: 1.5rem; color: var(--text); margin-bottom: 1rem;">Want to see more?</h3>
+      <p style="color: var(--muted); margin-bottom: 1.5rem;">Check out my GitHub for 30+ more projects and open-source contributions.</p>
+      <a href="https://github.com/klyjj" target="_blank" class="btn-primary">Visit GitHub ↗</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

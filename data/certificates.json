@@ -1,0 +1,28 @@
+{
+  "certificates": [
+    {
+      "id": 1,
+      "name": "Certificate Name 1",
+      "organization": "Issuing Organization",
+      "date_received": "2024-01-15",
+      "image_path": "certificates/cert-1.jpg",
+      "certificate_url": "https://example.com"
+    },
+    {
+      "id": 2,
+      "name": "Certificate Name 2",
+      "organization": "Issuing Organization",
+      "date_received": "2024-02-20",
+      "image_path": "certificates/cert-2.jpg",
+      "certificate_url": "https://example.com"
+    },
+    {
+      "id": 3,
+      "name": "Certificate Name 3",
+      "organization": "Issuing Organization",
+      "date_received": "2024-03-10",
+      "image_path": "certificates/cert-3.jpg",
+      "certificate_url": "https://example.com"
+    }
+  ]
+}

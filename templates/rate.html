@@ -1,0 +1,336 @@
+{% extends 'base.html' %}
+{% block title %}Request a Rating – kleia{% endblock %}
+
+{% block extra_css %}
+<style>
+  .rate-page {
+    padding: 6rem 1.5rem 4rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .rate-card {
+    margin: auto;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1.5rem;
+    padding: 2.5rem;
+    max-width: 480px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .rate-card::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(184, 169, 248, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 0;
+  }
+  
+  .rate-card-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .rate-header {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+    font-family: var(--font-head);
+    letter-spacing: -0.03em;
+    color: var(--text);
+  }
+  
+  .rate-subtitle {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+  }
+
+  .rate-form .form-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .rate-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    font-family: var(--font-mono);
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .rate-form input,
+  .rate-form textarea,
+  .rate-form select {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.75rem;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .rate-form input:focus,
+  .rate-form textarea:focus,
+  .rate-form select:focus {
+    outline: none;
+    border-color: rgba(184, 169, 248, 0.5);
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 0 3px rgba(184, 169, 248, 0.1);
+  }
+  
+  .rate-form select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+  }
+
+  .rate-form select option {
+    background: #111;
+    color: #eee;
+  }
+
+  .rate-form textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .btn-submit {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 1rem;
+    background: var(--text);
+    color: var(--bg);
+    border: none;
+    border-radius: 0.75rem;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -10px rgba(255, 255, 255, 0.2);
+  }
+  
+  .btn-submit:active {
+    transform: translateY(0);
+  }
+
+  .result-message {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    font-size: 0.95rem;
+    text-align: center;
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  .result-message.success {
+    background: rgba(52, 211, 153, 0.1);
+    border: 1px solid rgba(52, 211, 153, 0.2);
+    color: #34d399;
+  }
+  
+  .result-message.error {
+    background: rgba(248, 113, 113, 0.1);
+    border: 1px solid rgba(248, 113, 113, 0.2);
+    color: #f87171;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 640px) {
+    .rate-page {
+      padding: 5rem 1rem 3rem;
+    }
+    
+    .rate-card {
+      padding: 1.8rem 1.5rem;
+      border-radius: 1.2rem;
+    }
+    
+    .rate-header {
+      font-size: 1.6rem;
+    }
+    
+    .rate-subtitle {
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .rate-form input,
+    .rate-form textarea,
+    .rate-form select {
+      font-size: 0.95rem;
+      padding: 0.7rem 0.9rem;
+    }
+
+    .btn-submit {
+      padding: 0.85rem;
+      font-size: 0.85rem;
+    }
+  }
+  
+  @media (max-width: 400px) {
+    .rate-page {
+      padding: 4.5rem 0.75rem 2rem;
+    }
+    .rate-card {
+      padding: 1.5rem 1.2rem;
+    }
+    .rate-header {
+      font-size: 1.4rem;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="rate-page">
+  <div class="rate-card reveal">
+    <div class="rate-card-content">
+      <h2 class="rate-header">Leave a Rating</h2>
+      <p class="rate-subtitle">Share your experience working with me or thoughts on my projects.</p>
+      
+      <form id="ratingForm" class="rate-form">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" name="name" required placeholder="John Doe">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required placeholder="john@example.com">
+        </div>
+        
+        {% if projects and projects|length > 0 %}
+        <div class="form-group">
+          <label for="project">Project (Optional)</label>
+          <select id="project" name="project">
+            <option value="" selected>-- General Feedback --</option>
+            {% for p in projects %}
+              <option value="{{ p.title|e }}">{{ p.title|e }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        {% endif %}
+
+        <div class="form-group">
+          <label for="rating">Rating</label>
+          <select id="rating" name="rating" required>
+            <option value="" disabled selected>Select a rating</option>
+            <option value="5">5 ★ – Excellent</option>
+            <option value="4">4 ★ – Very Good</option>
+            <option value="3">3 ★ – Good</option>
+            <option value="2">2 ★ – Fair</option>
+            <option value="1">1 ★ – Poor</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="review">Review</label>
+          <textarea id="review" name="review" required placeholder="Tell me what you think..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          Submit Rating <span>→</span>
+        </button>
+      </form>
+      
+      <div id="resultMessage" class="result-message"></div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Add reveal animation
+  document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
+      document.querySelector('.rate-card').classList.add('visible');
+    }, 100);
+  });
+
+  const form = document.getElementById('ratingForm');
+  const resultDiv = document.getElementById('resultMessage');
+  const submitBtn = form.querySelector('.btn-submit');
+  
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Disable button to prevent double submission
+    const originalBtnText = submitBtn.innerHTML;
+    submitBtn.innerHTML = 'Submitting...';
+    submitBtn.disabled = true;
+    
+    const data = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      rating: parseInt(form.rating.value),
+      review: form.review.value.trim()
+    };
+    
+    // Include project if it exists in the form
+    if (form.project) {
+      data.project = form.project.value;
+    }
+    
+    try {
+      const resp = await fetch('/api/submit-rating', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const json = await resp.json();
+      
+      resultDiv.className = 'result-message'; // Reset classes
+      
+      if (resp.ok) {
+        resultDiv.classList.add('success');
+        resultDiv.textContent = json.message || 'Rating submitted successfully!';
+        form.reset();
+      } else {
+        resultDiv.classList.add('error');
+        resultDiv.textContent = json.error || 'Submission failed.';
+      }
+    } catch (err) {
+      resultDiv.className = 'result-message error';
+      resultDiv.textContent = 'Network error. Please try again.';
+    }
+    
+    resultDiv.style.display = 'block';
+    submitBtn.innerHTML = originalBtnText;
+    submitBtn.disabled = false;
+  });
+</script>
+{% endblock %}

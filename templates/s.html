@@ -1,0 +1,337 @@
+{% extends "base.html" %}
+
+{% block title %}Klein Ric Abong — Full-Stack Developer & AI Builder{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-tag">available for freelance</div>
+      <h1>
+        Building things<br>
+        <em>for the web.</em>
+      </h1>
+      <p class="hero-sub">
+        I'm <strong style="color:var(--text)">kleia</strong> — a full-stack developer &amp; AI-powered web builder crafting fast, purposeful digital experiences. From interactive artifacts to production-ready apps.
+      </p>
+      <div class="hero-actions">
+        <a href="/projects" class="btn-primary">see my work ↓</a>
+        <a href="https://www.fiverr.com/s/xX8mRGZ" target="_blank" class="btn-ghost">fiverr profile ↗</a>
+      </div>
+    </div>
+    <div class="hero-avatar">
+      <div class="hero-avatar-ring"></div>
+      {% if profile_image %}
+        <img src="{{ profile_image }}" alt="Profile" style="width:100%; height:100%; object-fit:cover;">
+      {% else %}
+        KL
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- Floating Rating Badge (Compact) -->
+<div class="floating-rating-badge" onclick="document.getElementById('ratingModal').style.display='flex'">
+  <div class="rating-badge-content">
+    <div class="rating-badge-stars">
+      {% for i in range(5) %}
+        {% if i < rating_stats.average %}⭐{% else %}☆{% endif %}
+      {% endfor %}
+    </div>
+    <div class="rating-badge-number">{{ rating_stats.average }}</div>
+    <div class="rating-badge-count">{{ rating_stats.count }}</div>
+  </div>
+</div>
+
+<!-- Rating Modal -->
+<div id="ratingModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:999; align-items:center; justify-content:center; backdrop-filter:blur(4px);">
+  <div style="background:var(--bg2); border:1px solid var(--border); border-radius:1rem; padding:2rem; max-width:450px; width:90%; max-height:90vh; overflow-y:auto;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+      <h2 style="font-family:var(--font-head); font-size:1.5rem; font-weight:700; color:var(--text);">Rate My Work</h2>
+      <button onclick="document.getElementById('ratingModal').style.display='none'" style="background:none; border:none; font-size:1.5rem; color:var(--muted); cursor:pointer; padding:0.5rem;">✕</button>
+    </div>
+    
+    <form id="ratingForm">
+      <div class="field" style="margin-bottom:1rem;">
+        <label for="ratingName">Name</label>
+        <input type="text" id="ratingName" placeholder="Your name" required style="width:100%;">
+      </div>
+
+      <div class="field" style="margin-bottom:1rem;">
+        <label for="ratingEmail">Email</label>
+        <input type="email" id="ratingEmail" placeholder="you@example.com" required style="width:100%;">
+      </div>
+
+      <div class="field" style="margin-bottom:1rem;">
+        <label for="ratingStars">Rating</label>
+        <select id="ratingStars" required style="width:100%; background:var(--bg3); border:1px solid var(--border); color:var(--text); padding:0.7rem 1rem; border-radius:0.6rem; font-family:var(--font-body); font-size:0.9rem;">
+          <option value="">Select rating...</option>
+          <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+          <option value="4">⭐⭐⭐⭐ Very Good</option>
+          <option value="3">⭐⭐⭐ Good</option>
+          <option value="2">⭐⭐ Fair</option>
+          <option value="1">⭐ Poor</option>
+        </select>
+      </div>
+
+      <div class="field" style="margin-bottom:1.5rem;">
+        <label for="ratingReview">Review</label>
+        <textarea id="ratingReview" placeholder="Share your experience..." required style="width:100%; min-height:100px;"></textarea>
+      </div>
+
+      <button type="submit" class="btn-primary" style="width:100%; justify-content:center;">
+        Submit Rating
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <span class="stat-num">30+</span>
+      <span class="stat-label">Projects</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">Remote</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">3</span>
+      <span class="stat-label">Certificates</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">∞</span>
+      <span class="stat-label">Coffee consumed</span>
+    </div>
+  </div>
+</div>
+
+<!-- Ratings Section -->
+<section class="ratings-section">
+  <div class="ratings-section-inner">
+    <div class="section-label">real feedback</div>
+    <h2 class="section-title" style="margin-bottom:2.5rem;">What people are saying.</h2>
+    
+    <div class="ratings-display-grid reveal">
+      <!-- Left: Summary -->
+      <div class="ratings-summary">
+        <div class="ratings-summary-stars">
+          {% for i in range(5) %}
+            {% if i < rating_stats.average %}⭐{% else %}☆{% endif %}
+          {% endfor %}
+        </div>
+        <div class="ratings-summary-number">{{ rating_stats.average }}</div>
+        <div class="ratings-summary-label">out of 5 • {{ rating_stats.count }} rating{{ 's' if rating_stats.count != 1 else '' }}</div>
+        
+        <button onclick="document.getElementById('ratingModal').style.display='flex'" class="btn-primary ratings-summary-btn">
+          Submit Rating
+        </button>
+
+        {% if github_stats %}
+        <div class="github-stats-mini">
+          <div class="github-stats-mini-title">GitHub Stats</div>
+          <div class="github-stat-row">
+            <span class="github-stat-label">Followers</span>
+            <span class="github-stat-value">{{ github_stats.followers }}</span>
+          </div>
+          <div class="github-stat-row">
+            <span class="github-stat-label">Stars</span>
+            <span class="github-stat-value">{{ github_stats.total_stars }}</span>
+          </div>
+          <div class="github-stat-row">
+            <span class="github-stat-label">Repos</span>
+            <span class="github-stat-value">{{ github_stats.public_repos }}</span>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Right: Ratings List -->
+      <div class="ratings-list-container">
+        <div class="ratings-list-title">All Reviews</div>
+        
+        {% if ratings %}
+          {% for rating in ratings %}
+          <div class="rating-item">
+            <div class="rating-item-header">
+              <div class="rating-user-info">
+                <div class="rating-name">{{ rating.name }}</div>
+                <div class="rating-email">{{ rating.email_masked }}</div>
+              </div>
+              <div class="rating-stars-inline">
+                {% for i in range(5) %}
+                  {% if i < rating.rating %}⭐{% else %}☆{% endif %}
+                {% endfor %}
+              </div>
+            </div>
+            <div class="rating-review">"{{ rating.review }}"</div>
+            <div class="rating-date">{{ rating.created_at[:10] }}</div>
+          </div>
+          {% endfor %}
+        {% else %}
+          <div style="text-align:center; color:var(--muted); padding:3rem; font-size:1rem;">
+            <p>No ratings yet. Be the first to rate!</p>
+            <button onclick="document.getElementById('ratingModal').style.display='flex'" class="btn-ghost" style="margin-top:1rem;">
+              Submit Rating →
+            </button>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label">who i am</div>
+    <h2 class="section-title">Developer &amp; builder<br>at heart.</h2>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p>Hey! I'm <strong>kleia (Klein Ric Abong / klyjj)</strong>, a developer based remotely, passionate about crafting web experiences that are both functional and beautifully designed.</p>
+        <p>I specialize in <strong>AI-powered applications</strong> and web artifacts — building tools that leverage the latest in LLM tech to create smarter, more interactive products. My GitHub hosts 45+ repositories spanning frontend experiments, full-stack projects, and AI integrations.</p>
+        <p>When I'm not pushing code, I'm exploring new frameworks, automating workflows, and thinking about how to make the web a more interesting place.</p>
+        <div style="margin-top:1.8rem">
+          <a href="https://github.com/klyjj" target="_blank" class="btn-ghost" style="display:inline-flex; font-size:0.78rem;">github profile ↗</a>
+        </div>
+      </div>
+      <div class="about-skills-grid">
+        <div>
+          <div class="skill-row-label">Frontend</div>
+          <div class="skill-pills">
+            <span class="pill accent">React</span>
+            <span class="pill accent">HTML/CSS</span>
+            <span class="pill accent">JavaScript</span>
+            <span class="pill accent">Tailwind</span>
+            <span class="pill accent">SVG</span>
+          </div>
+        </div>
+        <div>
+          <div class="skill-row-label">Backend &amp; Data</div>
+          <div class="skill-pills">
+            <span class="pill accent2">Node.js</span>
+            <span class="pill accent2">Python</span>
+            <span class="pill accent2">Flask</span>
+            <span class="pill accent2">REST APIs</span>
+            <span class="pill accent2">SQL</span>
+          </div>
+        </div>
+        <div>
+          <div class="skill-row-label">AI &amp; Tooling</div>
+          <div class="skill-pills">
+            <span class="pill accent3">Claude API</span>
+            <span class="pill accent3">LLM Integration</span>
+            <span class="pill accent3">Prompt Engineering</span>
+            <span class="pill accent3">Claude.ai Artifacts</span>
+          </div>
+        </div>
+        <div>
+          <div class="skill-row-label">Dev Tools</div>
+          <div class="skill-pills">
+            <span class="pill">Git / GitHub</span>
+            <span class="pill">VS Code</span>
+            <span class="pill">Figma</span>
+            <span class="pill">Bash</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<section id="services">
+  <div class="section-inner">
+    <div class="section-label">what i offer</div>
+    <h2 class="section-title">Services.</h2>
+    <p class="section-desc">Available on Fiverr and open to direct contracts. Let's build something great together.</p>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="service-icon">⚡</div>
+        <div class="service-name">AI-Powered Web Apps</div>
+        <p class="service-desc">Full-featured applications integrating Claude, GPT, or custom LLM pipelines. From chatbots to intelligent automation tools.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎨</div>
+        <div class="service-name">Interactive Artifacts</div>
+        <p class="service-desc">Custom Claude.ai artifacts — dashboards, tools, games, and widgets built with React, Tailwind, and modern web standards.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🚀</div>
+        <div class="service-name">Frontend Development</div>
+        <p class="service-desc">Responsive, accessible, and performant web interfaces. Clean code, sharp design, delivered fast.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔌</div>
+        <div class="service-name">API Integration</div>
+        <p class="service-desc">Connect your app to any third-party service. REST, webhooks, MCP servers, and custom backend logic.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">get in touch</div>
+    <h2 class="section-title">Let's work together.</h2>
+    <div class="contact-wrap reveal">
+      <div>
+        <p style="color:var(--muted); line-height:1.8; margin-bottom:0.5rem; font-size:1rem;">
+          Have a project in mind? I'm open to freelance work, collaborations, and interesting opportunities.
+        </p>
+        <div class="contact-info-links">
+          <a href="https://github.com/klyjj" target="_blank" class="contact-link">
+            <div class="contact-link-icon gh">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.386-1.333-1.756-1.333-1.756-1.09-.745.083-.73.083-.73 1.204.086 1.838 1.236 1.838 1.236 1.07 1.835 2.807 1.305 3.492.998.108-.776.417-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+            </div>
+            <div>
+              <span class="contact-link-label">GitHub</span>
+              github.com/klyjj
+            </div>
+          </a>
+          <a href="https://www.fiverr.com/s/xX8mRGZ" target="_blank" class="contact-link">
+            <div class="contact-link-icon fv">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#f5a87e"><path d="M23.004 15.588a.995.995 0 1 0 .002-1.99.995.995 0 0 0-.002 1.99zm-.996-3.705h-1.5c0-3.023-2.424-5.47-5.4-5.47v-1.5c3.804 0 6.9 3.12 6.9 6.97zm-3 0h-1.5c0-1.617-1.299-2.934-2.9-2.934v-1.5c2.425 0 4.4 1.994 4.4 4.434zm-3.32 6H.896C.396 17.883 0 17.484 0 16.988V7.012C0 6.516.396 6.117.896 6.117h14.792c.5 0 .896.399.896.895v9.976c0 .496-.396.895-.896.895l.0000001-.295z"/></svg>
+            </div>
+            <div>
+              <span class="contact-link-label">Fiverr</span>
+              fiverr.com/kleia
+            </div>
+          </a>
+        </div>
+      </div>
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" placeholder="Your name" required>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="you@example.com" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" placeholder="What's this about?">
+        </div>
+        <div class="field">
+          <label for="msg">Message</label>
+          <textarea id="msg" placeholder="Tell me about your project..." required></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="align-self:flex-start;" id="submitBtn">
+          send message →
+        </button>
+        <p id="formMsg" style="display:none; font-family:var(--font-mono); font-size:0.75rem; color:var(--accent2);"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

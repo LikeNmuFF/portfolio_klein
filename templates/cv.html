@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block title %}CV - Klein Ric Abong{% endblock %}
+
+{% block content %}
+
+<section style="padding-top: 8rem;">
+  <div class="cv-container reveal">
+    <div class="cv-header">
+      <h1 class="cv-name">Klein Ric Abong</h1>
+      <p class="cv-tagline">3rd Year Computer Science Student &amp; Web Developer</p>
+      <div class="cv-contact">
+        <span>📧 muffeia.klein@gmail.com</span>
+        <span>📞 +63 9670 888 151</span>
+        <span>🔗 github.com/LikeNmuFF</span>
+        <span>📍 Basilan, Philippines</span>
+      </div>
+      <a href="/download-cv" class="cv-download-btn">📥 Download PDF CV</a>
+    </div>
+
+    <!-- Professional Summary -->
+    <div class="cv-section">
+      <div class="cv-section-title">Professional Summary</div>
+      <p style="color: var(--muted); line-height: 1.7;">
+        Enthusiastic 3rd year Computer Science student and aspiring web developer, passionate about learning and crafting digital experiences. 
+        Strong interest in Cyber Security and Digital Forensics, combined with hands-on experience exploring a wide range of technologies 
+        from frontend web design to backend databases and Java applications. Eager to tackle new challenges and continuously build my skillset.
+      </p>
+    </div>
+
+    <!-- Technical Skills -->
+    <div class="cv-section">
+      <div class="cv-section-title">Technical Skills</div>
+      
+      <div class="cv-entry">
+        <div class="cv-entry-title">Frontend &amp; UI</div>
+        <div class="cv-entry-desc">HTML, CSS, JavaScript, Java Swing</div>
+      </div>
+
+      <div class="cv-entry">
+        <div class="cv-entry-title">Backend &amp; Databases</div>
+        <div class="cv-entry-desc">Python, Flask, Django, PHP, MySQL, SQLite, Java Maven</div>
+      </div>
+
+      <div class="cv-entry">
+        <div class="cv-entry-title">Security &amp; OS</div>
+        <div class="cv-entry-desc">Linux, Cyber Security, Digital Forensics</div>
+      </div>
+
+      <div class="cv-entry">
+        <div class="cv-entry-title">Hosting, Tools &amp; Design</div>
+        <div class="cv-entry-desc">Git/GitHub, VS Code, Bash, Figma, Canva, Inkscape, GIMP, Render, Vercel, PythonAnywhere, GoDaddy</div>
+      </div>
+    </div>
+
+    <!-- Featured Projects -->
+    <div class="cv-section">
+      <div class="cv-section-title">Featured Projects</div>
+      
+      {% for project in projects[:5] %}
+      <div class="cv-entry">
+        <div class="cv-entry-title">{{ project.title }}</div>
+        <div class="cv-entry-meta">{{ ' • '.join(project.tech) }}</div>
+        <div class="cv-entry-desc">{{ project.description }}</div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Certificates -->
+    <div class="cv-section">
+      <div class="cv-section-title">Certifications</div>
+      
+      {% for cert in certificates %}
+      <div class="cv-entry">
+        <div class="cv-entry-title">{{ cert.name }}</div>
+        <div class="cv-entry-meta">{{ cert.organization }} • {{ cert.date_received }}</div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Experience -->
+    <div class="cv-section">
+      <div class="cv-section-title">Personal Projects &amp; Experience</div>
+      
+      <div class="cv-entry">
+        <div class="cv-entry-title">Web Developer (Projects)</div>
+        <div class="cv-entry-meta">Present</div>
+        <div class="cv-entry-desc">
+          Created personal portfolio websites and web applications. Continuously building open-source repositories on GitHub to experiment with new frameworks, backend database architectures, and UI/UX design.
+        </div>
+      </div>
+    </div>
+
+    <!-- Core Competencies -->
+    <div class="cv-section">
+      <div class="cv-section-title">Core Competencies</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+        <div>
+          <p style="color: var(--text); font-weight: 600; margin-bottom: 0.5rem;">Development</p>
+          <ul style="color: var(--muted); list-style: none; font-size: 0.9rem; line-height: 1.8;">
+            <li>✓ Full-Stack Web Development</li>
+            <li>✓ Database Architecture</li>
+            <li>✓ Version Control (Git)</li>
+          </ul>
+        </div>
+        <div>
+          <p style="color: var(--text); font-weight: 600; margin-bottom: 0.5rem;">Security &amp; Analysis</p>
+          <ul style="color: var(--muted); list-style: none; font-size: 0.9rem; line-height: 1.8;">
+            <li>✓ Cyber Security Principles</li>
+            <li>✓ Digital Forensics</li>
+            <li>✓ Linux Administration</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Education -->
+    <div class="cv-section">
+      <div class="cv-section-title">Education</div>
+      <div class="cv-entry">
+        <div class="cv-entry-title">Bachelor of Science in Computer Science</div>
+        <div class="cv-entry-meta">3rd Year Student</div>
+        <div class="cv-entry-desc">
+          Currently pursuing a degree in Computer Science. Actively learning software engineering principles, database systems, web development, and exploring cyber security and digital forensics.
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center; padding-top: 2rem; border-top: 1px solid var(--border); margin-top: 2rem;">
+      <a href="/download-cv" class="cv-download-btn">📥 Download Full CV as PDF</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
