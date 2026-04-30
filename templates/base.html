@@ -1,47 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{% block title %}kleia — Developer Portfolio{% endblock %}</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-{% block extra_css %}{% endblock %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}kleia — Developer Portfolio{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% block extra_css %}{% endblock %}
 </head>
+
 <body>
 
-<!-- Nav -->
-<nav id="nav">
-  <a href="/" class="nav-logo">kl<span>.</span></a>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="/">home</a></li>
-    <li><a href="/projects">projects</a></li>
-    <li><a href="/certificates">certificates</a></li>
-    <li><a href="/cv">cv</a></li>
-  </ul>
-  <a href="https://www.fiverr.com/s/xX8mRGZ" target="_blank" class="nav-cta">hire me ↗</a>
-  <button class="hamburger" id="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
+  <!-- Nav -->
+  <nav id="nav">
+    <a href="/" class="nav-logo">kl<span>.</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">home</a></li>
+      <li><a href="/projects">projects</a></li>
+      <li><a href="/certificates">certificates</a></li>
+      <li><a href="/cv">cv</a></li>
+    </ul>
+    <a href="https://www.fiverr.com/s/xX8mRGZ" target="_blank" class="nav-cta">hire me ↗</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
 
-<!-- Main Content -->
-<main>
-  {% block content %}{% endblock %}
-</main>
+  <!-- Main Content -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
 
-<!-- Footer -->
-<footer>
-  <span>© 2026 kleia — Klein Ric Abong</span>
-  <span style="display:flex; gap:1.5rem;">
-    <a href="https://github.com/klyjj" target="_blank" style="color:var(--muted); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">github</a>
-    <a href="https://www.fiverr.com/s/xX8mRGZ" target="_blank" style="color:var(--muted); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">fiverr</a>
-  </span>
-  <span>built with ♥</span>
-</footer>
+  <!-- Footer -->
+  <footer>
+    <span>© 2026 kleia — Klein Ric Abong</span>
+    <span style="display:flex; gap:1.5rem;">
+      <a href="https://github.com/klyjj" target="_blank"
+        style="color:var(--muted); text-decoration:none; transition:color 0.2s;"
+        onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">github</a>
+      <a href="https://www.fiverr.com/s/xX8mRGZ" target="_blank"
+        style="color:var(--muted); text-decoration:none; transition:color 0.2s;"
+        onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">fiverr</a>
+    </span>
+    <span>built with ♥</span>
+  </footer>
 
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
-{% block extra_js %}{% endblock %}
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  {% block extra_js %}{% endblock %}
 </body>
+
 </html>
