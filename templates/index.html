@@ -1586,7 +1586,7 @@
       <h2 class="section-title">Featured projects.</h2>
       <p class="section-desc">A selection of my open-source work and personal projects on GitHub.</p>
       <div class="projects-grid">
-        {% for project in projects[:4] %}
+        {% for project in projects %}
         <a href="{{ project.github_link }}" target="_blank" class="project-card reveal" style="padding: 0;">
           
           {% if project.image %}
@@ -1595,12 +1595,27 @@
             {% if project.featured %}
             <div class="project-badge" style="position: absolute; top: 1rem; left: 1rem; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);">Featured</div>
             {% endif %}
+            {% if project.rating %}
+            <div class="project-badge" style="position: absolute; top: 1rem; right: 1rem; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); color: #fbbf24; border-color: rgba(251, 191, 36, 0.3);">
+              ★ {{ project.rating }} ({{ project.rating_count }})
+            </div>
+            {% endif %}
           </div>
           {% else %}
-            {% if project.featured %}
-            <div class="project-badge" style="margin: 2rem 2rem 0 2rem;">Featured</div>
-            {% endif %}
-            <div class="project-icon" style="margin: {% if project.featured %}1rem{% else %}2rem{% endif %} 2rem 0 2rem;">{{ project.icon if project.icon else '📁' }}</div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin: 2rem 2rem 0 2rem;">
+              {% if project.featured %}
+              <div class="project-badge">Featured</div>
+              {% else %}
+              <div></div>
+              {% endif %}
+              
+              {% if project.rating %}
+              <div class="project-badge" style="color: #fbbf24; border-color: rgba(251, 191, 36, 0.3);">
+                ★ {{ project.rating }} ({{ project.rating_count }})
+              </div>
+              {% endif %}
+            </div>
+            <div class="project-icon" style="margin: 1rem 2rem 0 2rem;">{{ project.icon if project.icon else '📁' }}</div>
           {% endif %}
           
           <div style="padding: {% if project.image %}1.5rem 2rem 2rem 2rem{% else %}1rem 2rem 2rem 2rem{% endif %}; display: flex; flex-direction: column; gap: 1rem; flex: 1;">

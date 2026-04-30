@@ -151,11 +151,24 @@ def calculate_average_rating():
     cursor.execute('SELECT AVG(rating) as avg_rating, COUNT(*) as count FROM ratings')
     result = cursor.fetchone()
     db.close()
-    
     return {
         'average': round(result['avg_rating'], 1) if result['avg_rating'] else 0,
         'count': result['count'] if result['count'] else 0
     }
+
+def get_project_ratings():
+    """Get average rating and count for each project_id"""
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('SELECT project_id, AVG(rating) as avg_rating, COUNT(*) as count FROM ratings WHERE project_id IS NOT NULL GROUP BY project_id')
+    ratings = {}
+    for row in cursor.fetchall():
+        ratings[row['project_id']] = {
+            'average': round(row['avg_rating'], 1),
+            'count': row['count']
+        }
+    db.close()
+    return ratings
 
 # ==================== ROUTES ====================
 
@@ -166,6 +179,18 @@ def index():
     ratings = get_all_ratings()
     rating_stats = calculate_average_rating()
     projects_data = load_projects_config()
+    projects_list = projects_data.get('projects', [])
+    
+    # Attach ratings to projects
+    proj_ratings = get_project_ratings()
+    for p in projects_list:
+        p_id = p.get('id')
+        if p_id in proj_ratings:
+            p['rating'] = proj_ratings[p_id]['average']
+            p['rating_count'] = proj_ratings[p_id]['count']
+    
+    # Sort projects: featured first
+    projects_list.sort(key=lambda x: not x.get('featured', False))
     
     context = {
         'github_stats': github_stats,
@@ -175,7 +200,7 @@ def index():
         'profile_name': 'Klein Ric Abong',
         'profile_aliases': ['klyjj', 'kleia'],
         'profile_image': '/static/images/profile.png',
-        'projects': projects_data.get('projects', [])
+        'projects': projects_list
     }
     
     return render_template('index.html', **context)
@@ -245,15 +270,15 @@ def submit_rating():
         # Insert into database
         db = get_db()
         cursor = db.cursor()
-        # Resolve optional project title to project_id
+        # Resolve optional project title to project_id using projects.json
         project_title = data.get('project')
         project_id = None
         if project_title:
-            proj_cursor = db.cursor()
-            proj_cursor.execute('SELECT id FROM projects WHERE title = ?', (project_title,))
-            proj_row = proj_cursor.fetchone()
-            if proj_row:
-                project_id = proj_row[0]
+            projects_list = load_projects_config().get('projects', [])
+            for p in projects_list:
+                if p.get('title') == project_title:
+                    project_id = p.get('id')
+                    break
         cursor.execute('''
             INSERT INTO ratings (name, email, email_masked, rating, review, project_id)
             VALUES (?, ?, ?, ?, ?, ?)
