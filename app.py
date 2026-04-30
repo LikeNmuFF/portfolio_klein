@@ -7,9 +7,12 @@ import requests
 from functools import lru_cache
 import re
 
+# Get absolute directory of the current file to avoid path issues on PythonAnywhere
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key-change-this'
-app.config['DATABASE'] = 'portfolio.db'
+app.config['DATABASE'] = os.path.join(BASE_DIR, 'portfolio.db')
 
 # ==================== UTILITIES ====================
 
@@ -118,7 +121,7 @@ def get_github_stats(username='klyjj'):
 
 def load_projects_config():
     """Load projects from JSON config file"""
-    config_path = os.path.join('data', 'projects.json')
+    config_path = os.path.join(BASE_DIR, 'data', 'projects.json')
     if os.path.exists(config_path):
         with open(config_path, 'r', encoding='utf-8') as f:
             return json.load(f)
@@ -126,7 +129,7 @@ def load_projects_config():
 
 def load_certificates_config():
     """Load certificates from JSON config file"""
-    config_path = os.path.join('data', 'certificates.json')
+    config_path = os.path.join(BASE_DIR, 'data', 'certificates.json')
     if os.path.exists(config_path):
         with open(config_path, 'r', encoding='utf-8') as f:
             return json.load(f)
@@ -291,7 +294,7 @@ def get_ratings():
 def download_cv():
     """Download CV as PDF"""
     try:
-        cv_path = os.path.join('static', 'downloads', 'cv.pdf')
+        cv_path = os.path.join(BASE_DIR, 'static', 'downloads', 'cv.pdf')
         if os.path.exists(cv_path):
             return send_file(cv_path, as_attachment=True, download_name='Klein_Ric_Abong_CV.pdf')
         else:
@@ -311,9 +314,10 @@ def server_error(e):
 
 # ==================== INITIALIZATION ====================
 
-if __name__ == '__main__':
-    # Initialize database
+# Initialize database (runs when app is imported by WSGI)
+with app.app_context():
     init_db()
-    
+
+if __name__ == '__main__':
     # Run Flask app
     app.run(debug=True, host='0.0.0.0', port=5000)
